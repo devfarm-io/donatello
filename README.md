@@ -1,7 +1,5 @@
 # Donatello
 
-# Donatello
-
 Donatello is a Ruby gem for effortlessly applying YAML-defined serialization schemas to Ruby objects, utilizing the speed of the Oj gem for optimal JSON output.
 
 After spending a lot of time with GraphQL, when I started working with other types of JSON APIs, I missed being able to define my schema centrally.
