@@ -1,0 +1,100 @@
+common_fields:
+  - id
+  - created_at
+  - updated_at
+
+engagement:
+  - likes_count
+  - comments_count
+
+# User-related serializers
+
+public_user:
+  - first_name
+  - last_name
+  - with: common_fields # use a single mixin
+
+private_user:
+  - with: public_user
+  - access_token
+  - email
+
+bad_user:
+  - first_name
+  - last_name
+  - missing_field
+
+engagement_user:
+  - with:
+    - public_user
+    - engagement
+  - favorite_color
+
+author:
+  - with: common_fields
+  - first_name
+  - middle_initial
+  - last_name
+  - joined_at
+  - total_posts_count
+
+hidden_identity:
+  - first_name
+  - last_initial
+
+# Other Objects/Entities serializers
+
+post:
+  # include multiple mixins:
+  - with:
+      - common_fields
+      - engagement
+  - title
+  - body
+  # If no serializer is given, all fields will be dumped to the output:
+  - widgets
+  - comments:
+      # If a serializer is given, only the attributes defined in the schema will be included:
+      serializer: comment
+  - author:
+      serializer: author
+      alias: author
+
+post_for_list:
+  - with: common_fields
+  - title
+
+
+comment:
+  - with: common_fields
+  - content
+  - creator:
+      # The root of this node will be "commenter" but the `creator` message will be sent to the `comment` object
+      alias: commenter
+      # only include the first name, and last initial
+      serializer: hidden_identity
+
+#  IDEAL:
+#     posts:
+#         alias: commenter
+#         serializer: hidden_identity
+#     => {"posts" => { "serializer" => "post_for_list", "alias" => "foo" } }
+topic_ideal_format:
+  - with: common_fields
+  - name
+  - posts:
+      serializer: post_for_list
+      alias: list_of_posts
+#  NOT GREAT:
+#     posts:
+#       alias: list_of_posts
+#       serializer: post_for_list
+#     => {"posts" => nil, "serializer" => "post_for_list", "alias" => "list_of_posts"}
+topic_not_great_format:
+  - with: common_fields
+  - name
+  - posts:
+    serializer: post_for_list
+    alias: list_of_posts
+
+empty:
