@@ -42,12 +42,13 @@ module Donatello # rubocop:disable Style/Documentation
                 end
               )
             else
+              attr_config = item.values.first || {}
               serializer_entry = item["serializer"] ||
-                                 item.values.first["serializer"] ||
-                                 item.values.first[:serializer] # ||
+                                 attr_config["serializer"] ||
+                                 attr_config[:serializer]
               alias_entry = item["alias"] ||
-                            item.values.first["alias"] ||
-                            item.values.first[:alias] # ||
+                            attr_config["alias"] ||
+                            attr_config[:alias]
               attribute_name = item.keys.map(&:to_s).find { |k| !%w[alias serializer].include?(k) }
               schema_key = serializer_entry || attribute_name
               alias_key = alias_entry || attribute_name
