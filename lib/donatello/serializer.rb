@@ -66,7 +66,8 @@ module Donatello # rubocop:disable Style/Documentation
               obj.merge({ item => result })
             end
           else
-            raise StandardError, "Error: Cannot process item - object does not respond to '#{item}'."
+            raise StandardError,
+                  "Error: Cannot process item - object (#{object.class}) (#{object.inspect}) does not respond to '#{item}'." # rubocop:disable Layout/LineLength
           end
         end
         acc.merge({ schema_name => results })

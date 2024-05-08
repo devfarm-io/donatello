@@ -33,7 +33,8 @@ class NoMethodErrorTest < Minitest::Spec
     begin
       serialize(user, :bad_user)
     rescue StandardError => e
-      assert_hash_equal "Error: Cannot process item - object does not respond to 'missing_field'.", e.message
+      assert_hash_equal "Error: Cannot process item - object (MissingFieldUser) (#<struct MissingFieldUser first_name=\"Wont\", last_name=\"Deliver\">) does not respond to 'missing_field'.", # rubocop:disable Layout/LineLength
+                        e.message
     end
   end
 end
