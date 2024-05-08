@@ -14,6 +14,13 @@ require "minitest/color"
 require "minitest/assertions"
 require "hashdiff"
 
+# HACK: undefine method :each so we can make Struct more object-like.
+# We use [Struct.new] to represent arrays of objects in the tests.
+# TODO: Move to OpenStruct for tests as an alternative.
+class Struct
+  undef_method :each
+end
+
 module Minitest
   module Assertions
     def assert_hash_equal(expected, actual, msg = nil)
