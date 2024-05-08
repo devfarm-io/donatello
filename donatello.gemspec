@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["dave@devfarm.io"]
 
   spec.summary = "Donatello lets you sculpt your serialized JSON according to a YAML schema."
-  spec.description = "Donatello is a Ruby gem for effortlessly applying YAML-defined serialization schemas to Ruby objects, utilizing the speed of the Oj gem for optimal JSON output"
+  spec.description = "Donatello is a Ruby gem for effortlessly applying YAML-defined serialization schemas to Ruby objects, utilizing the speed of the Oj gem for optimal JSON output" # rubocop:disable Layout/LineLength
   spec.homepage = "https://github.com/devfarm-io/donatello"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
