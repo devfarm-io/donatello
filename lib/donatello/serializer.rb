@@ -36,16 +36,16 @@ module Donatello # rubocop:disable Style/Documentation
       if item.is_a?(Hash)
         if item["with"]
           acc.merge(
-            handle_with(object, item, current_level)
+            handle_with(object, item, current_level) || {}
           )
         else
           acc.merge(
-            handle_attribute_config(object, item, current_level)
+            handle_attribute_config(object, item, current_level) || {}
           )
         end
       elsif object.respond_to?(item)
         acc.merge(
-          handle_attribute(object, item)
+          handle_attribute(object, item) || {}
         )
       else
         handle_exception(object, item)
